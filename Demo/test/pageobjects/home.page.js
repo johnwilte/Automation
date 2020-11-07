@@ -89,6 +89,7 @@ class HomePage extends Page {
 
     // Perform step 13
     TestStep13 () {
+      // To do: Update implentation to perform loop condition
       this.TestStep8();
       this.TestStep9();
       this.TestStep10();
@@ -104,6 +105,7 @@ class HomePage extends Page {
 
     // Perform step 15
     TestStep15 () {
+      // To do: Update implentation to perform loop condition
       this.btnNextCarousel.click();
       this.btnNextCarousel.click();
       this.btnNextCarousel.click();
@@ -120,6 +122,7 @@ class HomePage extends Page {
 
     // Perform step 17
     TestStep17 () {
+      // To do: Update implentation to perform loop condition
       this.btnPrevCarousel.click();
       this.btnPrevCarousel.click();
       this.btnPrevCarousel.click();
