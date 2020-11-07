@@ -51,6 +51,7 @@ describe('Demo Exam', () => {
   });
 
   it('REPEAT steps 8-12 four more times', () => {
+      // Update this line of script to perform loop condition
       HomePage.TestStep13();
       HomePage.TestStep13();
       HomePage.TestStep13();
