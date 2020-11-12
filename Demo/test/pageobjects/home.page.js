@@ -15,7 +15,7 @@ class HomePage extends Page {
     get checkImage() {return $('.case-intake-form__location-checker')}
     get btnSubmit() { return $('.case-intake-form__submit') }
     get clickLink() { return $('.case-intake-form__hint-link') }
-    get clickRandomLink() { return $('.other-categories__item:nth-child('+getRandomNumber()+')')}
+    get clickRandomLink() { return $('.other-categories__item:nth-child('+rn+')')}
     //get clickRandomLink() { return $('.other-categories__item:nth-child(3)')}
     get testimonialView() { return $('.w-testimonials') }
     get btnNextCarousel() { return $('.w-testimonials .carousel-controls__next') }

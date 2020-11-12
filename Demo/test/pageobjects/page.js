@@ -20,7 +20,7 @@ module.exports = class Page {
     }
 
 
-    getRandomNumber () {
-      return Math.floor(Math.random() * 54)
-    }
+  //  getRandomNumber () {
+  //    return Math.floor(Math.random() * 54)
+  //  }
 }
