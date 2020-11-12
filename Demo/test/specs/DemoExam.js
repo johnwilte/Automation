@@ -51,10 +51,35 @@ describe('Demo Exam', () => {
   });
 
   it('REPEAT steps 8-12 four more times', () => {
-      HomePage.TestStep13();
-      HomePage.TestStep13();
-      HomePage.TestStep13();
-      HomePage.TestStep13();
+      HomePage.TestStep8();
+      HomePage.TestStep9();
+      HomePage.TestStep10();
+      HomePage.TestStep11();
+      HomePage.TestStep12();
+  });
+
+  it('REPEAT steps 8-12 four more times', () => {
+      HomePage.TestStep8();
+      HomePage.TestStep9();
+      HomePage.TestStep10();
+      HomePage.TestStep11();
+      HomePage.TestStep12();
+  });
+
+  it('REPEAT steps 8-12 four more times', () => {
+      HomePage.TestStep8();
+      HomePage.TestStep9();
+      HomePage.TestStep10();
+      HomePage.TestStep11();
+      HomePage.TestStep12();
+  });
+
+  it('REPEAT steps 8-12 four more times', () => {
+      HomePage.TestStep8();
+      HomePage.TestStep9();
+      HomePage.TestStep10();
+      HomePage.TestStep11();
+      HomePage.TestStep12();
   });
 
   it('VALIDATE qa8.legalmatch.com page and scroll in a section', () => {
@@ -72,9 +97,11 @@ describe('Demo Exam', () => {
   it('Repeat step 15 & 16 but this time using the "left carret button"', () => {
       HomePage.TestStep17();
   });
-
+  **/
+/*
   it('VALIDATE qa8.legalmatch.com page and validate source section', () => {
       HomePage.TestStep18();
   });
+**/
 
 });

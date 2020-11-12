@@ -1,5 +1,6 @@
 const Page = require('./page');
 const rn = Math.floor(Math.random() * 54);
+
 /**
  * sub page containing specific selectors and methods for a specific page
  */
@@ -11,9 +12,11 @@ class HomePage extends Page {
     get clickChooseCategory () { return $('button*=Choose a Category') }
     get clickGovernmentOption() { return $('.case-intake-form__dropdown-item:nth-child(10)') }
     get inputLocation() { return $('[name="location"]') }
+    get checkImage() {return $('.case-intake-form__location-checker')}
     get btnSubmit() { return $('.case-intake-form__submit') }
     get clickLink() { return $('.case-intake-form__hint-link') }
-    get clickRandomLink() { return $('.other-categories__item:nth-child(' + rn + ')')}
+    get clickRandomLink() { return $('.other-categories__item:nth-child('+getRandomNumber()+')')}
+    //get clickRandomLink() { return $('.other-categories__item:nth-child(3)')}
     get testimonialView() { return $('.w-testimonials') }
     get btnNextCarousel() { return $('.w-testimonials .carousel-controls__next') }
     get btnPrevCarousel() { return $('.w-testimonials .carousel-controls__prev') }
@@ -39,7 +42,9 @@ class HomePage extends Page {
     // Perform step 3
     TestStep3 () {
       this.inputLocation.setValue('00001');
-      browser.pause(5000);
+      this.checkImage.waitForDisplayed({ timeout: 5000 });
+      //const visibility = this.checkImage.getCSSProperty('visibility');
+      //console.log(visibility);
     }
 
     // Perform step 4
@@ -60,6 +65,7 @@ class HomePage extends Page {
     // Perform step 7
     TestStep7 () {
       browser.back();
+    //  browser.pause(5000);
     }
 
     // Perform step 8
@@ -69,6 +75,7 @@ class HomePage extends Page {
 
     // Perform step 9
     TestStep9 () {
+      console.log(this.clickRandomLink.getText());
       this.clickRandomLink.click();
     }
 
@@ -79,21 +86,22 @@ class HomePage extends Page {
 
     // Perform step 11
     TestStep11 () {
-      this.VerifyElementTohaveText('legend', this.clickRandomLink.gettext());
+      this.VerifyElementTohaveText('legend', this.clickRandomLink.getText());
     }
 
     // Perform step 12
     TestStep12 () {
       browser.back();
+      //browser.pause(5000);
     }
 
     // Perform step 13
     TestStep13 () {
-      this.TestStep8();
-      this.TestStep9();
-      this.TestStep10();
-      this.TestStep11();
-      this.TestStep12();
+      //this.TestStep8();
+      //this.TestStep9();
+      //this.TestStep10();
+      //this.TestStep11();
+      //this.TestStep12();
     }
 
     // Perform step 14
@@ -116,6 +124,8 @@ class HomePage extends Page {
     // Perform step 16
     TestStep16 () {
       // to follow validation for the current active carousel
+      const elem = $('.js-carousel-dot:nth-child(1)');
+      expect(elem).toExist();
     }
 
     // Perform step 17
@@ -128,15 +138,18 @@ class HomePage extends Page {
       this.btnPrevCarousel.click();
       this.btnPrevCarousel.click();
       // to follow validation for the current active carousel
+      const elem = $('.js-carousel-dot:nth-child(1)');
+      expect(elem).toExist();
     }
 
     // Perform step 18
     TestStep18 () {
       // In progress, still not working..
-      //var test = browser.source();
+      //var test = browser.getSource();
       //expect(test).toHaveTextContaining(`<meta name="keywords" content="find a lawyer, find an attorney, find lawyers, find attorneys, legal help"`);
       //console.log(test);
-    }
+      expect(browser).toHaveTextContaining('keywords');
+      }
 
     VerifyToHaveUrl(page) {
       expect(browser).toHaveUrl(page);
