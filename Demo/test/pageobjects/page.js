@@ -15,11 +15,10 @@ module.exports = class Page {
     * Open the index/main page
     */
     openIndex () {
-        return browser.url(`https://qa8.legalmatch.com/`)
-        //return browser.url(`https://legalmatch.com/`)
+        //return browser.url(`https://qa8.legalmatch.com/`)
+        return browser.url(`https://legalmatch.com/`)
     }
-
-
+    
   //  getRandomNumber () {
   //    return Math.floor(Math.random() * 54)
   //  }

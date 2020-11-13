@@ -97,7 +97,6 @@ describe('Demo Exam', () => {
   it('Repeat step 15 & 16 but this time using the "left carret button"', () => {
       HomePage.TestStep17();
   });
-  **/
 /*
   it('VALIDATE qa8.legalmatch.com page and validate source section', () => {
       HomePage.TestStep18();
