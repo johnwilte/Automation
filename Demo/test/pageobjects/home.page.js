@@ -1,5 +1,7 @@
 const Page = require('./page');
 const rn = Math.floor(Math.random() * 54);
+var RandomNumber;
+var SelectCategoryValue;
 
 /**
  * sub page containing specific selectors and methods for a specific page
@@ -15,156 +17,118 @@ class HomePage extends Page {
     get checkImage() {return $('.case-intake-form__location-checker')}
     get btnSubmit() { return $('.case-intake-form__submit') }
     get clickLink() { return $('.case-intake-form__hint-link') }
-    get clickRandomLink() { return $('.other-categories__item:nth-child('+rn+')')}
-    //get clickRandomLink() { return $('.other-categories__item:nth-child(3)')}
     get testimonialView() { return $('.w-testimonials') }
     get btnNextCarousel() { return $('.w-testimonials .carousel-controls__next') }
     get btnPrevCarousel() { return $('.w-testimonials .carousel-controls__prev') }
     get activeCarousel() { return $('.carousel-dots__dot--active') }
 
-     /**
-      * a method to encapsule automation code to interact with the page
-      * e.g. to Navigate the browser
-      */
+    /**
+    * a method to encapsule automation code to interact with the page
+    * e.g. to Navigate the browser
+    */
 
-    // Perform step 1
-    TestStep1 () {
-      this.openIndex();
-      browser.maximizeWindow();
+    // Method to use to select a category by index
+    SelectCategoryByIndex (index) {
+        this.clickChooseCategory.click();
+        var elem = $('.case-intake-form__dropdown-item:nth-child('+index+')')
+        elem.waitForExist({ timeout: 50000 });
+        elem.click();
     }
 
-    // Perform step 2
-    TestStep2 () {
-      this.clickChooseCategory.click();
-      this.clickGovernmentOption.click();
+    // Method to use to select a category by innerText
+    SelectCategoryByInnerText (value) {
+        var category = ["Family","Employment","Criminal Defense","Real State","Business","Immigration","Personal Injury","Wills Trusts & Estates","Bankruptcy & Finances","Government","Products & Services","Intellectual Property"];
+        this.clickChooseCategory.click();
+        var categoryIndex = category.indexOf(value) + 1;
+        var elem = $('.case-intake-form__dropdown-item:nth-child('+ categoryIndex +')')
+        elem.waitForExist({ timeout: 50000 });
+        elem.click();
     }
 
-    // Perform step 3
-    TestStep3 () {
-      this.inputLocation.setValue('00001');
-      this.checkImage.waitForDisplayed({ timeout: 5000 });
+    // Method to use to set location by zipcode
+    SetLocation (zipcode) {
+        this.inputLocation.setValue(zipcode);
+        this.checkImage.waitForDisplayed({ timeout: 5000 });
       //const visibility = this.checkImage.getCSSProperty('visibility');
       //console.log(visibility);
     }
 
-    // Perform step 4
-    TestStep4 () {
-      this.btnSubmit.click();
+    // Method to Select and Click a random case category
+    SelectRandomCategory () {
+        this.SetRandomNumber ();
+        var elem = $('.other-categories__item:nth-child('+this.GetRandomNumber()+')');
+        elem.waitForExist({ timeout: 50000 });
+        this.SetSelectedCategoryValue(elem.getText());
+        console.log(elem.getText());
+        elem.click();
     }
 
-    // Perform step 5
-    TestStep5 () {
-      this.VerifyToHaveUrl('https://qa8.legalmatch.com/home/caseIntake.do');
+    // Method to use to set a random number (setter)
+    SetRandomNumber () {
+        var temp = Math.floor(Math.random() * 54);
+        RandomNumber = temp;
     }
 
-    // Perform step 6
-    TestStep6 () {
-      this.VerifyElementTohaveText('legend','Government');
+    // Method to use to get the random number being set (getter)
+    GetRandomNumber () {
+        return RandomNumber;
     }
 
-    // Perform step 7
-    TestStep7 () {
-      browser.back();
-    //  browser.pause(5000);
+    // Method to use to set value, base on selected category
+    SetSelectedCategoryValue (value) {
+        SelectCategoryValue = value;
     }
 
-    // Perform step 8
-    TestStep8 () {
-      this.clickLink.click();
+    // Method to use to get value of the selected category
+    GetSelectedCategoryValue () {
+        return SelectCategoryValue;
     }
 
-    // Perform step 9
-    TestStep9 () {
-      console.log(this.clickRandomLink.getText());
-      this.clickRandomLink.click();
+    // Method to verify selected category
+    VerifySelectedCategory () {
+        //browser.pause(5000);
+        this.VerifyElementTohaveText('legend', this.GetSelectedCategoryValue());
     }
 
-    // Perform step 10
-    TestStep10 () {
-      this.VerifyToHaveUrl('https://qa8.legalmatch.com/home/caseIntake.do');
+    // Method to use to perform a movement in a carrousel.
+    // For now it's, specific to w-testimonials carrousel.
+    MoveCarousel (control) {
+        var i;
+        for (i = 1; i <= 7; i++){
+            if(control=="Right"){
+                this.btnNextCarousel.click();
+                browser.pause(1000);
+            } else if (control=="Left") {
+                this.btnPrevCarousel.click();
+                browser.pause(1000);
+            } else {
+                // do nothing
+            }
+        }
     }
 
-    // Perform step 11
-    TestStep11 () {
-      this.VerifyElementTohaveText('legend', this.clickRandomLink.getText());
+    // Method to validate active carrousel
+    ValidateSelectedCarousel () {
+        // to follow validation for the current active carousel
+        //var elem = $('.js-carousel-dot:nth-child(1)');
+        var elem = $('.js-carousel-dot:nth-child(1)');
+        //const elem = $('carousel-dots__dot js-carousel-dot carousel-dots__dot--active').$('[data-id="1"]');
+        //expect(elem).toExist();
+        expect(elem).toHaveElementProperty('class', 'carousel-dots__dot js-carousel-dot carousel-dots__dot--active');
     }
 
-    // Perform step 12
-    TestStep12 () {
-      browser.back();
-      //browser.pause(5000);
-    }
-
-    // Perform step 13
-    TestStep13 () {
-      //this.TestStep8();
-      //this.TestStep9();
-      //this.TestStep10();
-      //this.TestStep11();
-      //this.TestStep12();
-    }
-
-    // Perform step 14
-    TestStep14 () {
-      this.VerifyToHaveUrl('https://qa8.legalmatch.com/');
-      this.testimonialView.scrollIntoView();
-    }
-
-    // Perform step 15
-    TestStep15 () {
-      // To do: Update implentation to perform loop condition
-      this.btnNextCarousel.click();
-      this.btnNextCarousel.click();
-      this.btnNextCarousel.click();
-      this.btnNextCarousel.click();
-      this.btnNextCarousel.click();
-      this.btnNextCarousel.click();
-      this.btnNextCarousel.click();
-    }
-
-    // Perform step 16
-    TestStep16 () {
-      // to follow validation for the current active carousel
-      const elem = $('.js-carousel-dot:nth-child(1)');
-      expect(elem).toExist();
-    }
-
-    // Perform step 17
-    TestStep17 () {
-      // To do: Update implentation to perform loop condition
-      this.btnPrevCarousel.click();
-      this.btnPrevCarousel.click();
-      this.btnPrevCarousel.click();
-      this.btnPrevCarousel.click();
-      this.btnPrevCarousel.click();
-      this.btnPrevCarousel.click();
-      this.btnPrevCarousel.click();
-      // to follow validation for the current active carousel
-      const elem = $('.js-carousel-dot:nth-child(1)');
-      expect(elem).toExist();
-    }
-
-    // Perform step 18
-    TestStep18 () {
-      // In progress, still not working..
-      //var test = browser.getSource();
-      //expect(test).toHaveTextContaining(`<meta name="keywords" content="find a lawyer, find an attorney, find lawyers, find attorneys, legal help"`);
-      //console.log(test);
-      expect(browser).toHaveTextContaining('keywords');
-      }
-
-    VerifyToHaveUrl(page) {
-      expect(browser).toHaveUrl(page);
-    }
-
+    // Method to use to Verify element to have a text
     VerifyElementTohaveText(element, tempText){
-      const elem = $(element);
-      expect(elem).toHaveTextContaining(tempText);
+        const elem = $(element);
+        elem.waitForExist({ timeout: 30000 });
+        expect(elem).toHaveTextContaining(tempText);
     }
 
-    openIndex () {
-        return super.openIndex();
+    // Method to use browse a page
+    BrowsePage (page) {
+        return super.open(page);
     }
+
 }
 
 module.exports = new HomePage();

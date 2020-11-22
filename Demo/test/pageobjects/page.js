@@ -8,18 +8,12 @@ module.exports = class Page {
     * @param path path of the sub page (e.g. /path/to/page.html)
     */
     open (path) {
-        return browser.url(`https://qa8.legalmatch.com/${path}`)
+      //return browser.url(`https://qa8.legalmatch.com/`)
+      //return browser.url(`https://legalmatch.com/`)
+      return browser.url(path)
     }
 
-    /**
-    * Open the index/main page
-    */
-    openIndex () {
-        //return browser.url(`https://qa8.legalmatch.com/`)
-        return browser.url(`https://legalmatch.com/`)
-    }
-    
-  //  getRandomNumber () {
-  //    return Math.floor(Math.random() * 54)
-  //  }
+//    getRandomNumber () {
+//      return Math.floor(Math.random() * 54)
+//    }
 }
