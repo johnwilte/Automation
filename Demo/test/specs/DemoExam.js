@@ -1,9 +1,10 @@
 const HomePage = require('../pageobjects/home.page')
+var BaseUrl = `https://qa9.legalmatch.com/`;
 
 describe('Demo Exam', () => {
 
-  it('STEP 1: NAVIGATE https://qa9.legalmatch.com/', () => {
-    HomePage.BrowsePage(`https://qa9.legalmatch.com/`);
+  it('STEP 1: NAVIGATE ' + BaseUrl, () => {
+    HomePage.BrowsePage(BaseUrl);
     browser.maximizeWindow();
   });
 
@@ -22,7 +23,7 @@ describe('Demo Exam', () => {
   });
 
   it('STEP 5: VERIFY if redirected to qa9.legalmatch.com/home/caseIntake.do page', () => {
-      expect(browser).toHaveUrl('https://qa9.legalmatch.com/home/caseIntake.do');
+      expect(browser).toHaveUrl(BaseUrl + 'home/caseIntake.do');
   });
 
   it('STEP 6: VERIFY that "Government" string can be found on the "xxx - Most Common Issues" form group label', () => {
@@ -42,7 +43,7 @@ describe('Demo Exam', () => {
   });
 
   it('STEP 10: VERIFY that you get redirected to qa9.legalmatch.com/home/caseIntake.do page', () => {
-      expect(browser).toHaveUrl('https://qa9.legalmatch.com/home/caseIntake.do');
+      expect(browser).toHaveUrl(BaseUrl + 'home/caseIntake.do');
   });
 
   it('STEP 11: VERIFY that "[selected category]" string can be found on the "xxx - Most Common Issues" form group label', () => {
@@ -62,16 +63,16 @@ describe('Demo Exam', () => {
       elem.waitForDisplayed({ timeout: 50000 });
 
       HomePage.SelectRandomCategory();
-      expect(browser).toHaveUrl('https://qa9.legalmatch.com/home/caseIntake.do');
+      expect(browser).toHaveUrl(BaseUrl + 'home/caseIntake.do');
       HomePage.VerifyElementTohaveText('legend', HomePage.GetSelectedCategoryValue());
       browser.back();
     }
   });
 
   it('STEP 14: VALIDATE qa8.legalmatch.com page and scroll in a section', () => {
-    HomePage.BrowsePage(`https://qa9.legalmatch.com/`);
+    HomePage.BrowsePage(BaseUrl);
     browser.pause(3000);
-    expect(browser).toHaveUrl('https://qa9.legalmatch.com/');
+    expect(browser).toHaveUrl(BaseUrl);
     HomePage.testimonialView.scrollIntoView();
   });
 
@@ -91,8 +92,8 @@ describe('Demo Exam', () => {
 
   it('STEP 18: VALIDATE qa8.legalmatch.com page and validate source section', () => {
     var elem = $('[name="keywords"]');
-    expect(browser).toHaveUrl('https://qa9.legalmatch.com/');
+    expect(browser).toHaveUrl(BaseUrl);
     expect(elem).toHaveElementProperty('content', 'find a lawyer, find an attorney, find lawyers, find attorneys, legal help')
   });
-  
+
 });
