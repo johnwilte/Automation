@@ -48,18 +48,14 @@ class HomePage extends Page {
     SetLocation (zipcode) {
         this.inputLocation.setValue(zipcode);
         this.checkImage.waitForDisplayed({ timeout: 5000 });
-      //const visibility = this.checkImage.getCSSProperty('visibility');
-      //console.log(visibility);
     }
 
     // Method to Select and Click a random case category
     SelectRandomCategory () {
         this.SetRandomNumber ();
-        var elem = $('.other-categories__item:nth-child('+this.GetRandomNumber()+')');
-        elem.waitForExist({ timeout: 50000 });
+        var elem = $('.other-categories__item:nth-child('+this.GetRandomNumber()+') > .other-categories__link');
         this.SetSelectedCategoryValue(elem.getText());
         console.log(elem.getText());
-        browser.pause(3000);
         elem.click();
     }
 

@@ -3,7 +3,6 @@ const HomePage = require('../pageobjects/home.page')
 describe('Demo Exam', () => {
 
   it('STEP 1: NAVIGATE https://qa9.legalmatch.com/', () => {
-    // HomePage.TestStep1();
     HomePage.BrowsePage(`https://qa9.legalmatch.com/`);
     browser.maximizeWindow();
   });
@@ -47,7 +46,6 @@ describe('Demo Exam', () => {
   });
 
   it('STEP 11: VERIFY that "[selected category]" string can be found on the "xxx - Most Common Issues" form group label', () => {
-      //HomePage.VerifySelectedCategory();
       HomePage.VerifyElementTohaveText('legend', HomePage.GetSelectedCategoryValue());
   });
 
@@ -56,19 +54,22 @@ describe('Demo Exam', () => {
   });
 
   it('STEP 13: REPEAT steps 8-12 four more times', () => {
+    var i;
     for (i = 1; i <= 4; i++) {
       HomePage.clickLink.click();
+
+      var elem = $('.modal-content');
+      elem.waitForDisplayed({ timeout: 50000 });
+
       HomePage.SelectRandomCategory();
       expect(browser).toHaveUrl('https://qa9.legalmatch.com/home/caseIntake.do');
-      //HomePage.VerifySelectedCategory();
       HomePage.VerifyElementTohaveText('legend', HomePage.GetSelectedCategoryValue());
       browser.back();
-      browser.pause(3000);
     }
-    browse.pause(10000);
   });
 
   it('STEP 14: VALIDATE qa8.legalmatch.com page and scroll in a section', () => {
+    HomePage.BrowsePage(`https://qa9.legalmatch.com/`);
     browser.pause(3000);
     expect(browser).toHaveUrl('https://qa9.legalmatch.com/');
     HomePage.testimonialView.scrollIntoView();
@@ -93,5 +94,5 @@ describe('Demo Exam', () => {
     expect(browser).toHaveUrl('https://qa9.legalmatch.com/');
     expect(elem).toHaveElementProperty('content', 'find a lawyer, find an attorney, find lawyers, find attorneys, legal help')
   });
-
+  
 });
