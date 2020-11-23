@@ -1,5 +1,4 @@
 const Page = require('./page');
-const rn = Math.floor(Math.random() * 54);
 var RandomNumber;
 var SelectCategoryValue;
 
@@ -60,6 +59,7 @@ class HomePage extends Page {
         elem.waitForExist({ timeout: 50000 });
         this.SetSelectedCategoryValue(elem.getText());
         console.log(elem.getText());
+        browser.pause(3000);
         elem.click();
     }
 
@@ -109,17 +109,13 @@ class HomePage extends Page {
 
     // Method to validate active carrousel
     ValidateSelectedCarousel () {
-        // to follow validation for the current active carousel
-        //var elem = $('.js-carousel-dot:nth-child(1)');
-        var elem = $('.js-carousel-dot:nth-child(1)');
-        //const elem = $('carousel-dots__dot js-carousel-dot carousel-dots__dot--active').$('[data-id="1"]');
-        //expect(elem).toExist();
-        expect(elem).toHaveElementProperty('class', 'carousel-dots__dot js-carousel-dot carousel-dots__dot--active');
+        var elem = $('.w-testimonials .js-carousel-slider-testimonial-list:nth-child(1)');
+        expect(elem).toBeDisplayed();
     }
 
     // Method to use to Verify element to have a text
     VerifyElementTohaveText(element, tempText){
-        const elem = $(element);
+        var elem = $(element);
         elem.waitForExist({ timeout: 30000 });
         expect(elem).toHaveTextContaining(tempText);
     }
